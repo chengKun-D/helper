@@ -18,13 +18,13 @@ var option: EChartsOption;
 
 option = {
   title: {
-    text: "疫情数据",
+    text: "大连疫情数据",
   },
   tooltip: {
     trigger: "axis",
   },
   legend: {
-    data: ["大连", "济南", "聊城"],
+    data: ["新增确诊","新增无症状","总计"],
   },
   grid: {
     left: "3%",
@@ -40,30 +40,30 @@ option = {
   xAxis: {
     type: "category",
     boundaryGap: false,
-    data: ["9-1", "9-2", "9-3", "9-4", "9-5", "9-6", "9-7"],
+    data: ["9-1", "9-2", "9-3", "9-4", "9-5", "9-6", "9-7","9-8","9-9","9-10","9-11","9-12","9-13","9-14","9-15","9-16","9-17",],
   },
   yAxis: {
     type: "value",
   },
   series: [
     {
-      name: "大连",
+      name: "新增确诊",
       type: "line",
       stack: "Total",
-      data: [1, 2, 2, 3, 4, 5, 5],
+      data: [4,3,6,5,9,2],
     },
     {
-      name: "济南",
+      name: "新增无症状",
       type: "line",
       stack: "Total",
-      data: [3, 4, 78, 7, 67, 7, 7],
+      data: [101,112,106,101,86,85]
     },
     {
-      name: "聊城",
+      name: "总计",
       type: "line",
       stack: "Total",
-      data: [2, 6, 6, 6, 87, 7, 8],
-    },
+      data:[4+101,3+112,6+106,5+101,9+86,2+85]
+    }
   ],
 };
 </script>
