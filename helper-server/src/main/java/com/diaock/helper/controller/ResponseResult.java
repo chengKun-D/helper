@@ -1,9 +1,7 @@
 package com.diaock.helper.controller;
 
 import java.io.Serializable;
-
 import com.diaock.helper.domain.CodeEnum;
-
 import lombok.Data;
 
 @Data

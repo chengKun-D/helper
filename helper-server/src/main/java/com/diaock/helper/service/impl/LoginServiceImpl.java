@@ -36,14 +36,13 @@ public class LoginServiceImpl implements LoginService {
 
         // 如果认证没有通过，给出对应的提示
         if (Objects.isNull(authenticate)) {
-            throw new RuntimeException("登录失败");
+            throw new RuntimeException("用户名或密码错误");
         }
 
         // 如果认证通过，使用user生成jwt jwt存入ResponseResult 返回
 
         // 如果认证通过，拿到这个当前登录用户信息
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-
         // 获取当前用户的userid
         String userid = loginUser.getUser().getUserId().toString();
 

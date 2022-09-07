@@ -1,5 +1,8 @@
 package com.diaock.helper.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +32,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
 
         //(授权，即查询用户具有哪些权限)查询对应的用户信息
-
+        List<String> list = new ArrayList<>(Arrays.asList("test"));
 
         //把数据封装成UserDetails返回
-        return new LoginUser(user);
+        return new LoginUser(user,list);
     }
     
 }

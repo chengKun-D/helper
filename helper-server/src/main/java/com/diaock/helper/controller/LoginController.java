@@ -1,11 +1,11 @@
 package com.diaock.helper.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diaock.helper.domain.User;
-import com.diaock.helper.filter.Autowired;
 import com.diaock.helper.service.LoginService;
 
 @RestController
