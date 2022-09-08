@@ -1,5 +1,6 @@
 package com.diaock.helper.config;
 
+import com.diaock.helper.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.diaock.helper.filter.JwtAuthenticationTokenFilter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)// 开启注解授权功能
@@ -39,7 +38,6 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                // 对于登录接口，允许匿名访问
                 .antMatchers("/user/login").anonymous()
                 .anyRequest().authenticated();
         http

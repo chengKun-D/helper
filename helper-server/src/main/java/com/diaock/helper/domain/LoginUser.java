@@ -1,47 +1,54 @@
 package com.diaock.helper.domain;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class LoginUser implements UserDetails{
+public class LoginUser implements UserDetails {
 
     private User user;
 
-    // 存储权限信息
+    // 存放当前登录用户的权限信息，一个用户可以有多个权限
     private List<String> permissions;
 
-    public LoginUser(User user, List<String> permissions){
+    public LoginUser(User user, List<String> permissions) {
         this.user = user;
         this.permissions = permissions;
     }
 
-    //存储SpringSecurity所需要的权限信息的集合
+    // 权限集合
     @JSONField(serialize = false)
-    private List<GrantedAuthority> authorities;
+    private List<SimpleGrantedAuthority> authorities;
 
     @Override
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(authorities!=null){
+        if (!Objects.isNull(authorities)) {
             return authorities;
         }
-        //把permissions中字符串类型的权限信息转换成GrantedAuthority对象存入authorities中
+        //把permissions中String类型的权限信息封装成SimpleGrantedAuthority
+        //第一种方式
+//         List<GrantedAuthority> newList = new ArrayList<>();
+//        for (String permission : permissions) {
+//            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permission);
+//            newList.add(authority);
+//        }
+
+        //方式二
         authorities = permissions.stream().
-                map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                map(SimpleGrantedAuthority::new).
+                collect(Collectors.toList());
+
         return authorities;
     }
 
@@ -74,5 +81,4 @@ public class LoginUser implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
 }

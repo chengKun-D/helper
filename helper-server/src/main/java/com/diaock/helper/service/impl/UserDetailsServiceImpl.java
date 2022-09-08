@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.diaock.helper.domain.LoginUser;
 import com.diaock.helper.domain.User;
 import com.diaock.helper.mapper.UserMapper;
-
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
@@ -32,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
 
         //(授权，即查询用户具有哪些权限)查询对应的用户信息
-        List<String> list = new ArrayList<>(Arrays.asList("test"));
+        List<String> list = new ArrayList<>(Arrays.asList("hello"));
 
         //把数据封装成UserDetails返回
         return new LoginUser(user,list);
