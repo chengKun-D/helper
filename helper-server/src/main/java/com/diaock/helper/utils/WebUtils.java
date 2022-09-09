@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+/* 
+ * Web 工具类
+ */
 public class WebUtils {
     /**
      * 将字符串渲染到客户端

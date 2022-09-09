@@ -17,6 +17,9 @@ import com.diaock.helper.domain.User;
 import com.diaock.helper.service.LoginService;
 import com.diaock.helper.utils.JwtUtil;
 import com.diaock.helper.utils.RedisCache;
+/* 
+ * LoginServiceImpl实现类
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
 

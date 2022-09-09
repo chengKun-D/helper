@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/* 
+ * User类
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

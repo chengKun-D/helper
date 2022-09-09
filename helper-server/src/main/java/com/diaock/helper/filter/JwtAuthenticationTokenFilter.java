@@ -22,7 +22,7 @@ import com.diaock.helper.utils.RedisCache;
 import io.jsonwebtoken.Claims;
 
 /* 
- * 认证过滤器
+ * JWT认证过滤器
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

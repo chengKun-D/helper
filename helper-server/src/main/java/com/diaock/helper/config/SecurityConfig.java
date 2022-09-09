@@ -15,7 +15,9 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+/* 
+ * SecuritConfig配置类
+ */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)// 开启注解授权功能
 public class SecurityConfig {

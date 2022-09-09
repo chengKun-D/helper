@@ -3,7 +3,9 @@ package com.diaock.helper.controller;
 import java.io.Serializable;
 import com.diaock.helper.domain.CodeEnum;
 import lombok.Data;
-
+/* 
+ * 响应类
+ */
 @Data
 public class ResponseResult<T> implements Serializable {
     private Integer code;

@@ -10,7 +10,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
-
+/* 
+ * JWT 工具类
+ */
 public class JwtUtil {
     // Token的有效时间
     public static final Long JWT_TTL = 60 * 60 * 1000L;// 60 * 60 *1000 一个小时

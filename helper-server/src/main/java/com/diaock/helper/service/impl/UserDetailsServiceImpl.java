@@ -15,6 +15,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.diaock.helper.domain.LoginUser;
 import com.diaock.helper.domain.User;
 import com.diaock.helper.mapper.UserMapper;
+/* 
+ * UserDetailsServiceImpl实现类
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
