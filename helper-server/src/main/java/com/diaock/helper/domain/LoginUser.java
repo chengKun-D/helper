@@ -11,7 +11,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+/* 
+ * LoginUser类实现UserDetails接口
+ */
 @Data
 @NoArgsConstructor
 public class LoginUser implements UserDetails {

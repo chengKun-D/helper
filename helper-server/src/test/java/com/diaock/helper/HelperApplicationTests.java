@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.diaock.helper.domain.User;
+import com.diaock.helper.mapper.MenuMapper;
 import com.diaock.helper.mapper.UserMapper;
 
 @SpringBootTest
@@ -14,6 +15,9 @@ class HelperApplicationTests {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private MenuMapper menuMapper;
 
 	@Test
 	void contextLoads() {
@@ -25,6 +29,12 @@ class HelperApplicationTests {
 		for (User user : userList) {
 			System.out.println(user);
 		}
+	}
+
+	@Test
+	void testMenuMapper() {
+		List<String> list = menuMapper.selectPermsByUserId(1L);
+		System.out.println(list);
 	}
 
 }

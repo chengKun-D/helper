@@ -12,7 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/* 
+ * 处理授权过程中出现的异常
+ */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
     @Override

@@ -13,11 +13,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/* 
+ * 处理认证过程中出现的异常
+ */
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException authException) throws IOException, ServletException {
         ResponseResult<Object> result = new ResponseResult<>(HttpStatus.UNAUTHORIZED.value(), "认证失败，是不是记错了？", null);
         String json = JSON.toJSONString(result);
         WebUtils.renderString(response, json);
