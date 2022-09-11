@@ -1,15 +1,16 @@
 package com.diaock.helper.domain;
 
 import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/* 
+ * Menu实体类
+ */
 @TableName(value = "sys_menu")
 @Data
 @AllArgsConstructor

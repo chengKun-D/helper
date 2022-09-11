@@ -1,5 +1,8 @@
 package com.diaock.helper.domain;
 
+/* 
+ * 状态码枚举类
+ */
 public enum CodeEnum {
     /**
      * 服务器成功返回用户请求的数据

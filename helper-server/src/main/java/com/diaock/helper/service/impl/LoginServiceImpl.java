@@ -3,20 +3,19 @@ package com.diaock.helper.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import com.diaock.helper.controller.ResponseResult;
 import com.diaock.helper.domain.LoginUser;
 import com.diaock.helper.domain.User;
 import com.diaock.helper.service.LoginService;
 import com.diaock.helper.utils.JwtUtil;
 import com.diaock.helper.utils.RedisCache;
+
 /* 
  * LoginServiceImpl实现类
  */
@@ -49,29 +48,27 @@ public class LoginServiceImpl implements LoginService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         // 获取当前用户的userid
         String userId = loginUser.getUser().getUserId().toString();
-
         String jwt = JwtUtil.createJWT(userId);
         Map<String, String> map = new HashMap<>();
         map.put("token", jwt);
 
         // 把完整的用户信息存入redis userid为key 用户信息为value
         redisCache.setCacheObject("login:" + userId, loginUser);
-
         return new ResponseResult<>(200, "登录成功", map);
     }
 
     @Override
     public ResponseResult<?> logout() {
-        //从SecurityContextHolder中的userid
-        UsernamePasswordAuthenticationToken authentication =
-                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        // 从SecurityContextHolder中的userid
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder
+                .getContext().getAuthentication();
 
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Long userid = loginUser.getUser().getUserId();
 
-        //根据userid找到redis对应值进行删除
-        redisCache.deleteObject("login:"+userid);
-        return new ResponseResult<>(200,"注销成功");
+        // 根据userid找到redis对应值进行删除
+        redisCache.deleteObject("login:" + userid);
+        return new ResponseResult<>(200, "注销成功");
     }
 
 }

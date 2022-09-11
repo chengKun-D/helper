@@ -1,16 +1,14 @@
 package com.diaock.helper.domain;
 
 import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /* 
- * User类
+ * User实体类
  */
 @Data
 @NoArgsConstructor

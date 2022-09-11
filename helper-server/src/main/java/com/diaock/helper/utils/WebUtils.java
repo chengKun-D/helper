@@ -1,7 +1,6 @@
 package com.diaock.helper.utils;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletResponse;
 
 /* 
