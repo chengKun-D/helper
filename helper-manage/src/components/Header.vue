@@ -31,7 +31,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <a
-              href="https://gitee.com/diaock/cheng-kun-box.git"
+              href="https://gitee.com/diaock"
               target="_blank"
             >
               <el-dropdown-item>项目仓库</el-dropdown-item>
