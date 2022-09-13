@@ -32,7 +32,10 @@
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
             >编辑</el-button
           >
-          <el-button size="small" type="danger" @click="handleDelete"
+          <el-button
+            size="small"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button
           >
         </template>
@@ -72,15 +75,16 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
-import { computed, ref, reactive, nextTick } from "vue";
+import { computed, ref, reactive, nextTick, inject } from "vue";
 import type { Action } from "element-plus";
-import { addData, editData } from "../api/safe";
+import { addData, editData, getData, deleteData } from "../api/safe";
 
 const labelPosition = ref("left");
 const isDialogShow = ref(false);
 const search = ref();
 const dialogTitle = ref();
 const additionalDataRef = ref<FormInstance>();
+const reload: any = inject("reload");
 /* 编辑或新增数据弹出的对话框数据 */
 const additionalData = reactive({
   account: "",
@@ -88,18 +92,7 @@ const additionalData = reactive({
   remark: "",
 });
 /* 表格数据 */
-const tableData = reactive([
-  {
-    account: "1234",
-    password: "11111",
-    remark: "remark",
-  },
-  {
-    account: "ceshi",
-    password: "222",
-    remark: "ceshi",
-  },
-]);
+const tableData = reactive<Array<Object>>([]);
 /* 根据remark过滤数据 */
 const filterTableData = computed(() =>
   tableData.filter(
@@ -126,7 +119,7 @@ const handleCancel = () => {
   isDialogShow.value = false;
 };
 /* 删除一条数据 */
-const handleDelete = () => {
+const handleDelete = (index: number, row: any) => {
   ElMessageBox.confirm("确定要删除嘛？", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -134,14 +127,21 @@ const handleDelete = () => {
     showClose: false,
     callback: (action: Action) => {
       if (action === "confirm") {
-        ElMessage({
-          type: "success",
-          message: `action: ${action}`,
+        deleteData(row.id).then((res) => {
+          if (res.code == 200) {
+            ElMessage({
+              type: "success",
+              message: "删除成功",
+            });
+          }
         });
       }
+      reload();
     },
   });
+  
 };
+/* 新增按钮 */
 const handleAdd = () => {
   dialogTitle.value = "新增";
   isDialogShow.value = true;
@@ -149,26 +149,34 @@ const handleAdd = () => {
     additionalDataRef.value?.resetFields();
   });
 };
+/* 新增或编辑确认按钮 */
 const handleConfirm = () => {
   if (dialogTitle.value == "新增") {
     addData(additionalData).then((res) => {
-      /* ElMessage({
+      console.log(res);
+      ElMessage({
         message: "新增成功！",
         type: "success",
-      }); */
+      });
     });
-    isDialogShow.value = false;
   } else {
     editData(additionalData).then((res) => {
-      /* ElMessage({
+      ElMessage({
         message: "修改成功！",
         type: "success",
-      }); */
+      });
     });
-
-    isDialogShow.value = false;
   }
+  isDialogShow.value = false;
+  reload();
 };
+/* 获取数据库数据 */
+const handleGetData = () => {
+  getData().then((res) => {
+    res.data.forEach((element: Object) => tableData.push(element));
+  });
+};
+handleGetData();
 </script>
 
 <style lang="css" scoped></style>

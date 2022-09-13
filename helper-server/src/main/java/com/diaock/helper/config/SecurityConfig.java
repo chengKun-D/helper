@@ -15,11 +15,12 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 /* 
  * SecuritConfig配置类
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)// 开启注解授权功能
+@EnableGlobalMethodSecurity(prePostEnabled = true) // 开启注解授权功能
 public class SecurityConfig {
 
     @Autowired
@@ -36,11 +37,11 @@ public class SecurityConfig {
         http
                 // 关闭csrf
                 .csrf().disable()
-                //不通过Session获取SecurityContext
+                // 不通过Session获取SecurityContext
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/login").anonymous()
+                .antMatchers("/user/login","/safe/add","/safe/get","/safe/delete").anonymous()
                 .anyRequest().authenticated();
         http
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -60,7 +61,8 @@ public class SecurityConfig {
 
     // 获取AuthenticationManager（认证管理器），登录时认证使用。
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 

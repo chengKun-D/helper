@@ -11,13 +11,21 @@ const service = axios.create({
     headers请求头:config.headers["字段名"]="字段值" + token值
 */
 service.interceptors.request.use(
-  (config) => {},
-  (error) => {}
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 service.interceptors.response.use(
-  (response) => {},
-  (error) => {}
+  (response) => {
+    return response.data
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
 );
 
 export default service;
