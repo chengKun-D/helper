@@ -53,13 +53,13 @@
       label-width="100px"
       ref="additionalDataRef"
     >
-      <el-form-item label="账 号：">
+      <el-form-item label="账 号：" prop="account">
         <el-input v-model="additionalData.account"></el-input>
       </el-form-item>
-      <el-form-item label="密 码：">
+      <el-form-item label="密 码：" prop="password">
         <el-input v-model="additionalData.password"></el-input>
       </el-form-item>
-      <el-form-item label="备注信息：">
+      <el-form-item label="备注信息：" prop="remark">
         <el-input v-model="additionalData.remark"></el-input>
       </el-form-item>
     </el-form>
@@ -72,7 +72,7 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
-import { computed, ref, reactive, onMounted, onBeforeMount, onBeforeUnmount} from "vue";
+import { computed, ref, reactive, nextTick } from "vue";
 import type { Action } from "element-plus";
 import { addData, editData } from "../api/safe";
 
@@ -112,15 +112,17 @@ const filterTableData = computed(() =>
 const handleEdit = (index: number, row: any) => {
   dialogTitle.value = "编辑";
   isDialogShow.value = true;
-  additionalData.account = row.account;
-  additionalData.password = row.password;
-  additionalData.remark = row.remark;
+  nextTick(() => {
+    additionalData.account = row.account;
+    additionalData.password = row.password;
+    additionalData.remark = row.remark;
+  });
 };
 /* 取消修改或取消新增 */
 const handleCancel = () => {
-  additionalData.account = "";
-  additionalData.password = "";
-  additionalData.remark = "";
+  nextTick(() => {
+    additionalDataRef.value?.resetFields();
+  });
   isDialogShow.value = false;
 };
 /* 删除一条数据 */
@@ -143,6 +145,9 @@ const handleDelete = () => {
 const handleAdd = () => {
   dialogTitle.value = "新增";
   isDialogShow.value = true;
+  nextTick(() => {
+    additionalDataRef.value?.resetFields();
+  });
 };
 const handleConfirm = () => {
   if (dialogTitle.value == "新增") {
@@ -160,6 +165,7 @@ const handleConfirm = () => {
         type: "success",
       }); */
     });
+
     isDialogShow.value = false;
   }
 };
