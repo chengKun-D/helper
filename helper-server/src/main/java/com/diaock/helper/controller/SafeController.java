@@ -29,4 +29,9 @@ public class SafeController {
     public ResponseResult<?> delete(@RequestBody String id){
         return safeService.delete(id);
     }
+
+    @RequestMapping("/edit")
+    public ResponseResult<?> edit(@RequestBody Safe safe){
+        return safeService.edit(safe);
+    }
 }

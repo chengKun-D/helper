@@ -9,4 +9,6 @@ public interface SafeService {
     public ResponseResult<?> get();
 
     public ResponseResult<?> delete(String id);
+
+    public ResponseResult<?> edit(Safe safe);
 }

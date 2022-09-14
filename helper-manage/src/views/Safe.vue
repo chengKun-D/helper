@@ -87,6 +87,7 @@ const additionalDataRef = ref<FormInstance>();
 const reload: any = inject("reload");
 /* 编辑或新增数据弹出的对话框数据 */
 const additionalData = reactive({
+  id: "",
   account: "",
   password: "",
   remark: "",
@@ -106,6 +107,7 @@ const handleEdit = (index: number, row: any) => {
   dialogTitle.value = "编辑";
   isDialogShow.value = true;
   nextTick(() => {
+    additionalData.id = row.id;
     additionalData.account = row.account;
     additionalData.password = row.password;
     additionalData.remark = row.remark;
@@ -127,19 +129,16 @@ const handleDelete = (index: number, row: any) => {
     showClose: false,
     callback: (action: Action) => {
       if (action === "confirm") {
-        deleteData(row.id).then((res) => {
-          if (res.code == 200) {
-            ElMessage({
-              type: "success",
-              message: "删除成功",
-            });
-          }
+        deleteData(row.id).then(() => {
+          ElMessage({
+            type: "success",
+            message: "删除成功",
+          });
         });
       }
       reload();
     },
   });
-  
 };
 /* 新增按钮 */
 const handleAdd = () => {
@@ -153,7 +152,6 @@ const handleAdd = () => {
 const handleConfirm = () => {
   if (dialogTitle.value == "新增") {
     addData(additionalData).then((res) => {
-      console.log(res);
       ElMessage({
         message: "新增成功！",
         type: "success",
@@ -161,11 +159,13 @@ const handleConfirm = () => {
     });
   } else {
     editData(additionalData).then((res) => {
+      console.log(res);
       ElMessage({
         message: "修改成功！",
         type: "success",
       });
     });
+    reload();
   }
   isDialogShow.value = false;
   reload();

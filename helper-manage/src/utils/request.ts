@@ -21,7 +21,9 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (response) => {
-    return response.data
+    if (response.status == 200) {
+      return response.data;
+    }
   },
   (error) => {
     return Promise.reject(error);

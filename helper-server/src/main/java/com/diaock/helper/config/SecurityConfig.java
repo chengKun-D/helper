@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/login","/safe/add","/safe/get","/safe/delete").anonymous()
+                .antMatchers("/user/login","/safe/add","/safe/get","/safe/delete","/safe/edit").anonymous()
                 .anyRequest().authenticated();
         http
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -45,4 +45,13 @@ public class SafeServiceImpl implements SafeService {
         return new ResponseResult<>(CodeEnum.INTERNAL_SERVER_ERROR.getCode(), CodeEnum.INTERNAL_SERVER_ERROR.getMsg());
     }
 
+    @Override
+    public ResponseResult<?> edit(Safe safe) {
+        int res = safeMapper.updateById(safe);
+        if (res >= 0) {
+            return new ResponseResult<>(CodeEnum.CREATED.getCode(), CodeEnum.CREATED.getMsg());
+        }
+        return new ResponseResult<>(CodeEnum.INTERNAL_SERVER_ERROR.getCode(), CodeEnum.INTERNAL_SERVER_ERROR.getMsg());
+    }
+
 }
