@@ -60,10 +60,12 @@
 
 <script lang="ts" setup>
 import { reactive , ref} from "vue";
-import { FormRules } from "element-plus";
+import { FormInstance, FormRules } from "element-plus";
+import Cookies from "js-cookie";
 
 const loading = ref(false);
 const register = ref(true);
+const loginFormRef = ref<FormInstance>();
 const loginRules = reactive<FormRules>({
   username: [{ required: true, trigger: "blur", message: "请输入您的账号" }],
   password: [{ required: true, trigger: "blur", message: "请输入您的密码" }],
@@ -75,7 +77,14 @@ const loginForm = reactive({
 });
 /* 登录方法 */
 const handleLogin =() => {
-
+  loginFormRef.value?.validate((validate) => {
+    if(validate){
+      loading.value = true;
+      if(loginForm.rememberMe){
+        
+      }
+    }
+  })
 }
 </script>
 
