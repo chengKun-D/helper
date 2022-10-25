@@ -75,30 +75,31 @@ const loginRules = reactive<FormRules>({
   password: [{ required: true, trigger: "blur", message: "请输入您的密码" }],
 });
 const loginForm = reactive({
-  username: "",
-  password: "",
-  rememberMe: "",
+  username: Cookies.get("username") ? Cookies.get("username") : "",
+  password: Cookies.get("password") ? decrypt(Cookies.get("password")) : "",
+  rememberMe: Cookies.get("rememberMe") === "true" ? true : false,
 });
 /* 登录方法 */
 const handleLogin = () => {
   loginFormRef.value?.validate((validate) => {
     if (validate) {
       loading.value = true;
-      if (loginForm.rememberMe) {
-        Cookies.set("username", loginForm.username, { expires: 30 });
-        Cookies.set("password", encrypt(loginForm.password), { expires: 30 });
-        Cookies.set(
-          "rememberMe",
-          loginForm.rememberMe === "true" ? "true" : "false",
-          { expires: 30 }
-        );
-      } else {
-        Cookies.remove("username");
-        Cookies.remove("password");
-        Cookies.remove("rememberMe");
-      }
-      /* GO ON */
       store.dispatch("Login", loginForm).then(() => {
+        if (loginForm.rememberMe) {
+          Cookies.set("username", loginForm.username as string, {
+            expires: 30,
+          });
+          Cookies.set("password", encrypt(loginForm.password), { expires: 30 });
+          Cookies.set(
+            "rememberMe",
+            loginForm.rememberMe === true ? "true" : "false",
+            { expires: 30 }
+          );
+        } else {
+          Cookies.remove("username");
+          Cookies.remove("password");
+          Cookies.remove("rememberMe");
+        }
         //跳转
         ElMessage({
           message: "登录成功，欢迎回来刁承坤",

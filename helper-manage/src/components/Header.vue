@@ -30,16 +30,11 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <a
-              href="https://gitee.com/diaock"
-              target="_blank"
-            >
+            <a href="https://gitee.com/diaock" target="_blank">
               <el-dropdown-item>项目仓库</el-dropdown-item>
             </a>
             <el-dropdown-item command="user">个人中心</el-dropdown-item>
-            <el-dropdown-item divided command="logout"
-              >退出登录
-            </el-dropdown-item>
+            <el-dropdown-item divided @click="handleLogout">退出登录 </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -49,9 +44,17 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import router from "../router";
+import store from "../store";
 
 const message = ref(2);
 const username = ref("刁承坤");
+
+const handleLogout = () => {
+  store.dispatch("Logout").then(() => {
+    router.push("/login")
+  })
+};
 </script>
 
 <style scoped lang="css">

@@ -52,6 +52,8 @@ const router = createRouter({
 let userToken = user.state.token;
 router.beforeEach((to,from,next) => {
   userToken = user.state.token;
+  console.log(userToken)
+  console.log("------------")
   if(to.path === '/login'){
       next();
   }

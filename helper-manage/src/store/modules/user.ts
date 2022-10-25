@@ -1,5 +1,5 @@
-import { login } from "../../api/login";
-import { setToken } from "../../utils/auth";
+import { login, logout } from "../../api/login";
+import { removeToken, setToken } from "../../utils/auth";
 
 const user = {
   state: {
@@ -47,6 +47,17 @@ const user = {
           });
       });
     },
+    Logout() {
+      return new Promise<void>((resolve,reject) => {
+        logout().then((res) => {
+          // 删除 Redis 里的登录信息
+          // TODO
+          
+          // 删除浏览器Cookie里的Token
+          removeToken();
+        })
+      })
+    }
   },
 };
 
