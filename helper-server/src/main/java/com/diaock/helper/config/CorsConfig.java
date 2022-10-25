@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")// 设置允许跨域的路径
+        registry.addMapping("/**")// 设置允许跨域的路径 /**
                 .allowedOriginPatterns("*")// 设置允许跨域请求的域名
                 .allowCredentials(true)// 是否允许cookie
                 .allowedMethods("GET", "POST", "DELETE", "PUT")// 设置允许的请求方式

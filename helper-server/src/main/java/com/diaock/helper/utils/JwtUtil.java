@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
 import java.util.UUID;
+
 /* 
  * JWT 工具类
  */
@@ -67,9 +68,9 @@ public class JwtUtil {
         long expMillis = nowMillis + ttlMillis;
         Date expDate = new Date(expMillis);
         return Jwts.builder()
-                .setId(uuid) //唯一的id
+                .setId(uuid) // 唯一的id
                 .setSubject(subject) // 主题 可以是JSON数据
-                .setIssuer("sg") // 签发者
+                .setIssuer("diaock") // 签发者
                 .setIssuedAt(now) // 签发时间
                 .signWith(signatureAlgorithm, secretKey) // 使用HS256对称加密算法签名, 第二个参数为秘钥
                 .setExpiration(expDate);
@@ -89,8 +90,12 @@ public class JwtUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String jwt = createJWT("123456");
-        System.out.println(jwt);
+        // String jwt = createJWT("123456");
+        Claims mingwen = parseJWT(
+                "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI4OWI4ZjBiMjdjNWQ0N2Y3OWUzOTgyNDE5NDNkNDU3ZSIsInN1YiI6IjEyMzQ1NiIsImlzcyI6InNnIiwiaWF0IjoxNjY2NTk2ODE3LCJleHAiOjE2NjY2MDA0MTd9.OOrS94QUSuci0wC9NxVoaDV7rFODlckSG4za4OPn78o");
+        System.out.println(mingwen);
+
+        // System.out.println(jwt);
     }
 
     /**

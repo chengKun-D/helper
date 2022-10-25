@@ -59,10 +59,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive , ref} from "vue";
-import { FormInstance, FormRules } from "element-plus";
+import { reactive, ref } from "vue";
+import { ElMessage, FormInstance, FormRules } from "element-plus";
 import Cookies from "js-cookie";
+import { encrypt, decrypt } from "./utils/jsencrypt";
+import router from "./router";
+import { useStore } from "vuex";
 
+const store = useStore();
 const loading = ref(false);
 const register = ref(true);
 const loginFormRef = ref<FormInstance>();
@@ -76,16 +80,35 @@ const loginForm = reactive({
   rememberMe: "",
 });
 /* 登录方法 */
-const handleLogin =() => {
+const handleLogin = () => {
   loginFormRef.value?.validate((validate) => {
-    if(validate){
+    if (validate) {
       loading.value = true;
-      if(loginForm.rememberMe){
-        
+      if (loginForm.rememberMe) {
+        Cookies.set("username", loginForm.username, { expires: 30 });
+        Cookies.set("password", encrypt(loginForm.password), { expires: 30 });
+        Cookies.set(
+          "rememberMe",
+          loginForm.rememberMe === "true" ? "true" : "false",
+          { expires: 30 }
+        );
+      } else {
+        Cookies.remove("username");
+        Cookies.remove("password");
+        Cookies.remove("rememberMe");
       }
+      /* GO ON */
+      store.dispatch("Login", loginForm).then(() => {
+        //跳转
+        ElMessage({
+          message: "登录成功，欢迎回来刁承坤",
+          type: "success",
+        });
+        router.push("/");
+      });
     }
-  })
-}
+  });
+};
 </script>
 
 <style lang="css" scoped>

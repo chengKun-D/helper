@@ -22,7 +22,7 @@ public class ResponseResult<T> implements Serializable {
     }
 
     /**
-     * 有参构造
+     * 有参构造（不带数据）
      *
      * @param code
      * @param msg
@@ -33,7 +33,7 @@ public class ResponseResult<T> implements Serializable {
     }
 
     /**
-     * 有参构造
+     * 有参构造（带数据）
      *
      * @param code
      * @param msg

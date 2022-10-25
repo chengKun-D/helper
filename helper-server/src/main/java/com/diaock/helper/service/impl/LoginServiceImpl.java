@@ -28,6 +28,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private RedisCache redisCache;
 
+    /* 
+     * 登录
+     */
     @Override
     public ResponseResult<?> login(User user) {
         // 通过UsernamePasswordAuthenticationToken获取用户名和密码
@@ -57,6 +60,9 @@ public class LoginServiceImpl implements LoginService {
         return new ResponseResult<>(200, "登录成功", map);
     }
 
+    /* 
+     * 退出登录
+     */
     @Override
     public ResponseResult<?> logout() {
         // 从SecurityContextHolder中的userid

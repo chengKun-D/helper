@@ -1,4 +1,6 @@
 import axios from "axios";
+import { ElMessageBox } from "element-plus";
+import { inject } from "vue";
 
 const service = axios.create({
   baseURL: "http://localhost:8080",
@@ -22,6 +24,19 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     if (response.status == 200) {
+      if (response.data.code === 401) {
+        ElMessageBox.confirm("账号或密码错误，请重新登陆！", "系统提示", {
+          confirmButtonText: "重新登陆",
+          cancelButtonText: "取消",
+          type: "error",
+        })
+          .then(() => {
+            location.href = "/login";
+          })
+          .catch((error) => {
+            if (error === "cancel") location.href = "/login";
+          });
+      }
       return response.data;
     }
   },

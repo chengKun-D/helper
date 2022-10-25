@@ -27,13 +27,12 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
     }
 
-
     public FastJsonRedisSerializer(Class<T> clazz) {
         super();
         this.clazz = clazz;
     }
 
-    /* 
+    /*
      * 序列化
      */
     @Override
@@ -44,8 +43,7 @@ public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
         return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);
     }
 
-
-    /* 
+    /*
      * 反序列化
      */
     @Override
