@@ -4,6 +4,7 @@ import Login from "../LoginView.vue";
 import Home from "../HomeView.vue";
 import Register from "../RegisterView.vue";
 import user from "../store/modules/user";
+import store from "../store";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
@@ -51,14 +52,12 @@ const router = createRouter({
 
 let userToken = user.state.token;
 router.beforeEach((to,from,next) => {
-  userToken = user.state.token;
-  console.log(userToken)
-  console.log("------------")
   if(to.path === '/login'){
       next();
   }
   else if(!userToken){
       alert("暂未登录")
+      console.log(user.state.token)
       next("/login")
   } else{
     next();

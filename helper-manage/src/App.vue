@@ -6,7 +6,6 @@ import { nextTick, provide, ref } from "vue";
 import store from "./store";
 
 if (sessionStorage.getItem("store")) {
-  console.log(sessionStorage.getItem("store"))
   store.replaceState(
     Object.assign(
       {},
@@ -15,6 +14,7 @@ if (sessionStorage.getItem("store")) {
     )
   );
 }
+
 const isRouterAlive = ref(true);
 
 const reload = () => {
